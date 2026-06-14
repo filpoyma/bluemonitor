@@ -33,19 +33,21 @@ export function AboutScreen({ navigation }: AboutScreenProps) {
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>Screen Tester</Text>
-        <Text style={styles.version}>Version 1.0.0</Text>
-        <Text style={styles.description}>
-          Simple smartphone display diagnostic tool.
-        </Text>
+        <View style={styles.content}>
+          <Text style={styles.title}>Screen Tester</Text>
+          <Text style={styles.version}>Version 1.0.0</Text>
+          <Text style={styles.description}>
+            Simple smartphone display diagnostic tool.
+          </Text>
 
-        <Text style={styles.sectionTitle}>Features</Text>
-        {FEATURES.map(feature => (
-          <View key={feature} style={styles.featureRow}>
-            <Text style={styles.bullet}>•</Text>
-            <Text style={styles.featureText}>{feature}</Text>
-          </View>
-        ))}
+          <Text style={styles.sectionTitle}>Features</Text>
+          {FEATURES.map(feature => (
+            <View key={feature} style={styles.featureRow}>
+              <Text style={styles.bullet}>•</Text>
+              <Text style={styles.featureText}>{feature}</Text>
+            </View>
+          ))}
+        </View>
       </ScrollView>
 
       <Pressable
@@ -67,7 +69,13 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
+    justifyContent: 'center',
     paddingBottom: 24,
+  },
+  content: {
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
   },
   title: {
     color: colors.primaryText,

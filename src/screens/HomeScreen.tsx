@@ -35,20 +35,20 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
       </View>
 
       <View style={styles.buttons}>
-        <Pressable
-          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-          onPress={() => navigation.navigate('ScreenTest')}>
-          <Text style={styles.buttonText}>Start Testing</Text>
-        </Pressable>
+          <Pressable
+            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+            onPress={() => navigation.navigate('ScreenTest')}>
+            <Text style={styles.buttonText}>Start Testing</Text>
+          </Pressable>
 
-        <Pressable
-          style={({ pressed }) => [
-            styles.buttonSecondary,
-            pressed && styles.buttonPressed,
-          ]}
-          onPress={() => navigation.navigate('About')}>
-          <Text style={styles.buttonSecondaryText}>About App</Text>
-        </Pressable>
+          <Pressable
+            style={({ pressed }) => [
+              styles.buttonSecondary,
+              pressed && styles.buttonPressed,
+            ]}
+            onPress={() => navigation.navigate('About')}>
+            <Text style={styles.buttonSecondaryText}>About App</Text>
+          </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -66,6 +66,9 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
   },
   title: {
     color: colors.primaryText,
@@ -86,6 +89,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     gap: 12,
+    width: '100%',
   },
   button: {
     backgroundColor: colors.accent,
