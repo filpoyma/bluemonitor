@@ -1,5 +1,9 @@
-import React, { useMemo } from 'react';
-import { StyleSheet, View, useWindowDimensions } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import {
+  LayoutChangeEvent,
+  StyleSheet,
+  View,
+} from 'react-native';
 import type { StripeVariant } from '../constants/tests';
 
 interface StripeTestProps {
@@ -9,9 +13,22 @@ interface StripeTestProps {
 const STRIPE_WIDTH = 4;
 
 export function StripeTest({ variant }: StripeTestProps) {
-  const { width, height } = useWindowDimensions();
+  const [layout, setLayout] = useState({ width: 0, height: 0 });
+
+  const handleLayout = useCallback((event: LayoutChangeEvent) => {
+    const { width, height } = event.nativeEvent.layout;
+    setLayout(prev =>
+      prev.width === width && prev.height === height ? prev : { width, height },
+    );
+  }, []);
+
+  const { width, height } = layout;
 
   const stripes = useMemo(() => {
+    if (width === 0 || height === 0) {
+      return [];
+    }
+
     if (variant === 'vertical-bw') {
       const count = Math.ceil(width / STRIPE_WIDTH);
       return Array.from({ length: count }, (_, i) => ({
@@ -40,7 +57,6 @@ export function StripeTest({ variant }: StripeTestProps) {
       }));
     }
 
-    // RGB vertical stripes
     const rgbColors = ['#FF0000', '#00FF00', '#0000FF'];
     const count = Math.ceil(width / STRIPE_WIDTH);
     return Array.from({ length: count }, (_, i) => ({
@@ -56,7 +72,7 @@ export function StripeTest({ variant }: StripeTestProps) {
   }, [variant, width, height]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={handleLayout}>
       {stripes.map(stripe => (
         <View key={stripe.key} style={[styles.stripe, stripe.style]} />
       ))}

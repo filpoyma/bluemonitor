@@ -1,17 +1,21 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import BootSplash from 'react-native-bootsplash';
 import { RootNavigator } from './navigation/RootNavigator';
 
-export default function App() {
-  const handleNavigationReady = useCallback(() => {
-    BootSplash.hide({ fade: true });
-  }, []);
+const SPLASH_VISIBLE_MS = 1500;
 
+function hideBootSplash() {
+  setTimeout(() => {
+    BootSplash.hide({ fade: true });
+  }, SPLASH_VISIBLE_MS);
+}
+
+export default function App() {
   return (
-    <SafeAreaProvider>
-      <NavigationContainer onReady={handleNavigationReady}>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <NavigationContainer onReady={hideBootSplash}>
         <RootNavigator />
       </NavigationContainer>
     </SafeAreaProvider>

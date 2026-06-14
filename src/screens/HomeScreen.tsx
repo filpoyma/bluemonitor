@@ -5,6 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { colors } from '../constants/colors';
 import { radii } from '../constants/radii';
@@ -21,7 +22,7 @@ interface HomeScreenProps {
 
 export function HomeScreen({ navigation }: HomeScreenProps) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <View style={styles.content}>
         <Text style={styles.title}>Screen Tester</Text>
         <Text style={styles.subtitle}>
@@ -49,7 +50,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
           <Text style={styles.buttonSecondaryText}>About App</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     paddingHorizontal: 24,
-    paddingVertical: 32,
+    paddingTop: 16,
+    paddingBottom: 16,
     justifyContent: 'space-between',
   },
   content: {
